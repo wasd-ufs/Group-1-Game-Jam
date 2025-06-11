@@ -7,12 +7,12 @@ namespace QuizLogic {
 /// </summary>
 public class Question {
     // Este valores podem ser alterados depois dependendo do que o projeto precisar
-    protected const byte ANSWER_MAX_LIMIT = 10;
-    protected const byte ANSWER_MIN_LIMIT = 2;
-    protected const byte TEXT_MAX_LENGTH = 100;
+    private const byte ANSWER_MAX_LIMIT = 10;
+    private const byte ANSWER_MIN_LIMIT = 2;
+    private const byte TEXT_MAX_LENGTH = 100;
     
-    protected string _text;
-    protected Answer[] _allAnswers;
+    private string _text;
+    private Answer[] _allAnswers;
     
     public byte NumberOfAnswers { get => (byte)_allAnswers.Length; }
     public string Text{
