@@ -26,6 +26,7 @@ public class QuizManager : MonoBehaviour {
         get => _questionOrder[_currentQuestionIndex];
     }
 
+    // FIXME: Tirar isso aqui e trocar por uma função que encapsula melhor
     public Player PlayerAnswering {
         get => _playerAnswering ;
         set {
@@ -52,6 +53,10 @@ public class QuizManager : MonoBehaviour {
         }
     }
     
+    /// <summary>
+    /// Função Awake da unity para inicializar a instância singleton
+    /// </summary>
+    /// <author>Davi Araújo</author>
     private void Awake() {
         if(Instance is null) {
             Instance = this;
@@ -61,6 +66,14 @@ public class QuizManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Comando para começar uma partida do quiz
+    /// </summary>
+    /// <param name="players">Informações dos jogadores</param>
+    /// <exception cref="Exception">Quando uma partida já está em andamento</exception>
+    /// <exception cref="NullReferenceException">Se nenhum pacote de pergunta foi disponibilizado</exception>
+    /// <exception cref="ArgumentException">Se a quantidade de jogadores não pertence a [2,4] ∩ ℕ </exception>
+    /// <author>Davi Araújo</author>
     public void StartMatch(params Player[] players) {
         if(IsMatchActive) {
             // TODO: Trocar isto por exceção personalizada
@@ -82,7 +95,7 @@ public class QuizManager : MonoBehaviour {
         _allPlayers = players;
         _playerAnswering = null;
         
-        // Carrega perguntas
+        // Carregando perguntas
         _questionOrder = _activeQuestionPack.QuestionCollection;
 
         if(_hasRandomOrder) {
@@ -90,6 +103,11 @@ public class QuizManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Comando para passar para o próximo turno do quiz
+    /// </summary>
+    /// <returns>A pergunta do turno para qual foi pulado</returns>
+    /// <author>Davi Araújo</author>
     public Question SkipRound() {
         RoundCount++;
         _currentQuestionIndex++;
@@ -102,7 +120,14 @@ public class QuizManager : MonoBehaviour {
 
         return _questionOrder[_currentQuestionIndex];
     }
-
+    
+    /// <summary>
+    /// Lógica para chute de jogador
+    /// </summary>
+    /// <param name="answerIndex">Index da resposta escolhida</param>
+    /// <returns>Se o chute foi correto ou não</returns>
+    /// <exception cref="Exception">Não há nenhum jogar respondendo no momento da chamada</exception>
+    /// <author>Davi Araújo</author>
     public bool PlayerGuess(byte answerIndex) {
         if(_playerAnswering is null) {
             // TODO: Trocar isto por exceção personalizada
@@ -119,6 +144,11 @@ public class QuizManager : MonoBehaviour {
         return CurrentQuestion.IsAnswerCorrect(answerIndex);
     }
     
+    /// <summary>
+    /// Processo para finalização de uma partida
+    /// </summary>
+    /// <returns></returns>
+    /// <author>Davi Araújo</author>
     // FIXME: Levar em conta caso de empate
     public Player EndMatch() {
         // Procurar pelo jogador com mais pontos
@@ -135,8 +165,15 @@ public class QuizManager : MonoBehaviour {
         return winner;
     }
 
+    /// <summary>
+    /// Função para pegar um jogador pelo index
+    /// </summary>
+    /// <param name="index">Index do jogador no array</param>
+    /// <returns>Objeto do jogador escolhido</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Para quando é passado um index fora do array</exception>
+    /// <author>Davi Araújo</author>
     public Player GetPlayerByIndex(byte index) {
-        if(index is > 4) {
+        if(index > 4) {
             throw new ArgumentOutOfRangeException();
         }
 

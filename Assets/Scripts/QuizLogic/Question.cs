@@ -61,8 +61,16 @@ public class Question {
         //TODO: Quando remover isto lembre-se de mudar o sumário também
         throw new NotImplementedException("Ainda não implementado");
     }
-
+    
+    /// <summary>
+    /// Acessa o vetor de respostas pelo index e retorna se
+    /// aquela respostas específica está correta
+    /// </summary>
+    /// <param name="index">Index da resposta a ser consultada</param>
+    /// <returns>Valor IsCorrect da resposta</returns>
+    /// <author>Davi Araújo</author>
     public bool IsAnswerCorrect(byte index) {
+        // TODO: Tratar caso o index esteja além da array
         return _allAnswers[index].IsCorrect;
     }
 }

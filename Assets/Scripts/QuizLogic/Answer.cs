@@ -7,6 +7,7 @@ namespace QuizLogic {
 /// Estrutura para agrupar informações relacionadas às respostas das
 /// perguntas do quiz.
 /// </summary>
+
 [Serializable]
 public struct Answer {
     // Este valor pode ser alterado no futuro para se encaixar nas necessidades da UI
