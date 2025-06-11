@@ -9,18 +9,24 @@ namespace QuizLogic {
 [Serializable]
 public class Question {
     // Este valores podem ser alterados depois dependendo do que o projeto precisar
-    private const byte ANSWER_MAX_LIMIT = 10;
-    private const byte ANSWER_MIN_LIMIT = 2;
-    private const byte TEXT_MAX_LENGTH = 100;
+    public const byte ANSWER_MAX_LIMIT = 10;
+    public const byte ANSWER_MIN_LIMIT = 2;
+    public const byte TEXT_MAX_LENGTH = 100;
     
     [SerializeField] private string _text;
     [SerializeField] private Answer[] _allAnswers;
     
     public byte NumberOfAnswers { get => (byte)_allAnswers.Length; }
+    
     public string Text{
         get => _text;
         // Verificando se o tamanho é maior que o permitido e cortando caso seja
         private set => _text = value[..Math.Min(value.Length, TEXT_MAX_LENGTH)];
+    }
+    
+    // Será que isso realmente encapsula bem?
+    public Answer[] AllAnswers {
+        get => _allAnswers;
     }
     
     /// <summary>
@@ -52,8 +58,12 @@ public class Question {
     /// </summary>
     /// <param name="questionId">Identificador da questão para buscar no arquivo</param>
     public Question(ushort questionId) {
-        // Quando remover isto lembre-se de mudar o sumário também
+        //TODO: Quando remover isto lembre-se de mudar o sumário também
         throw new NotImplementedException("Ainda não implementado");
+    }
+
+    public bool IsAnswerCorrect(byte index) {
+        return _allAnswers[index].IsCorrect;
     }
 }
 

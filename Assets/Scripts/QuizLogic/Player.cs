@@ -2,10 +2,10 @@ namespace QuizLogic {
 
 [System.Serializable]
 public class Player {
-    public short Score;
+    public int Score;
     public string Name;
 
-    public Player(string name, short initialScore = 0) {
+    public Player(string name, int initialScore = 0) {
         Name = name;
         Score = initialScore;
     }
