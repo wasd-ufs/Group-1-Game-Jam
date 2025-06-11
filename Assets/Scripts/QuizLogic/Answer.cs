@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace QuizLogic {
 
@@ -6,12 +7,13 @@ namespace QuizLogic {
 /// Estrutura para agrupar informações relacionadas às respostas das
 /// perguntas do quiz.
 /// </summary>
+[Serializable]
 public struct Answer {
     // Este valor pode ser alterado no futuro para se encaixar nas necessidades da UI
     private const byte TEXT_MAX_LENGTH = 50;
 
-    private string _text;
-    private bool _isCorrect;
+    [SerializeField] private string _text;
+    [SerializeField] private bool _isCorrect;
 
     public string Text {
         get => _text;

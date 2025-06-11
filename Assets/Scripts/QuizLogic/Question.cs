@@ -1,24 +1,26 @@
 using System;
+using UnityEngine;
 
 namespace QuizLogic {
 
 /// <summary>
 /// Agrupa informações relacionadas às perguntas do quiz.
 /// </summary>
+[Serializable]
 public class Question {
     // Este valores podem ser alterados depois dependendo do que o projeto precisar
     private const byte ANSWER_MAX_LIMIT = 10;
     private const byte ANSWER_MIN_LIMIT = 2;
     private const byte TEXT_MAX_LENGTH = 100;
     
-    private string _text;
-    private Answer[] _allAnswers;
+    [SerializeField] private string _text;
+    [SerializeField] private Answer[] _allAnswers;
     
     public byte NumberOfAnswers { get => (byte)_allAnswers.Length; }
     public string Text{
         get => _text;
         // Verificando se o tamanho é maior que o permitido e cortando caso seja
-        set => _text = value[..Math.Min(value.Length, TEXT_MAX_LENGTH)];
+        private set => _text = value[..Math.Min(value.Length, TEXT_MAX_LENGTH)];
     }
     
     /// <summary>

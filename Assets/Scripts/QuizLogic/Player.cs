@@ -1,5 +1,6 @@
 namespace QuizLogic {
 
+[System.Serializable]
 public class Player {
     public short Score;
     public string Name;
