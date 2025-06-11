@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace QuizLogic {
 
+/// <summary>
+/// Classe singleton para gerenciamento da lógica do quiz
+/// </summary>
 public class QuizManager : MonoBehaviour {
     // Instância singleton
     public static QuizManager Instance { get; private set; }
