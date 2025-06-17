@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace QuizLogic {
 
@@ -28,7 +29,14 @@ public class QuizManager : MonoBehaviour {
     public Question CurrentQuestion {
         get => _questionOrder[_currentQuestionIndex];
     }
-
+    
+    [Header("Events")]
+    // Eventos
+    public UnityEvent OnMatchStart;
+    public UnityEvent OnMatchEnd;
+    public UnityEvent OnQuestionSkip;
+    public UnityEvent OnPlayerGuess;
+    
     // FIXME: Tirar isso aqui e trocar por uma função que encapsula melhor
     public Player PlayerAnswering {
         get => _playerAnswering ;
@@ -104,6 +112,8 @@ public class QuizManager : MonoBehaviour {
         if(_hasRandomOrder) {
             Extras.KnuthShuffle(_questionOrder);
         }
+        
+        OnMatchStart.Invoke();
     }
 
     /// <summary>
@@ -117,10 +127,11 @@ public class QuizManager : MonoBehaviour {
         _playerAnswering = null;
 
         if(RoundCount > _questionOrder.Length) {
-            // Invoca eventozudo aqui jajá eu faço
+            EndMatch();
             return null;
         }
-
+        
+        OnQuestionSkip.Invoke();
         return _questionOrder[_currentQuestionIndex];
     }
     
@@ -143,7 +154,8 @@ public class QuizManager : MonoBehaviour {
         else {
             _playerAnswering.Score -= _pointPenalty;
         }
-
+        
+        OnPlayerGuess.Invoke();
         return CurrentQuestion.IsAnswerCorrect(answerIndex);
     }
     
@@ -164,7 +176,8 @@ public class QuizManager : MonoBehaviour {
         }
 
         IsMatchActive = false;
-
+        
+        OnMatchEnd.Invoke();
         return winner;
     }
 
