@@ -15,6 +15,7 @@ public class QuizManager : MonoBehaviour {
     private Player[] _allPlayers;
     private ushort _currentQuestionIndex;
     private Question[] _questionOrder;
+    private byte _numberOfPlayers;
 
     [Header("Quiz Configurations")] 
     [SerializeField] private ushort _pointPenalty;
@@ -26,28 +27,10 @@ public class QuizManager : MonoBehaviour {
     
     public ushort RoundCount { get; private set;  }
     
+    // Se a partida não tiver começado retorna null
+    // Não sei se isso é o certo ou se jogar um erro seria melhor
     public Question CurrentQuestion {
-        get => _questionOrder[_currentQuestionIndex];
-    }
-    
-    [Header("Events")]
-    // Eventos
-    public UnityEvent OnMatchStart;
-    public UnityEvent OnMatchEnd;
-    public UnityEvent OnQuestionSkip;
-    public UnityEvent OnPlayerGuess;
-    
-    // FIXME: Tirar isso aqui e trocar por uma função que encapsula melhor
-    public Player PlayerAnswering {
-        get => _playerAnswering ;
-        set {
-            if(_playerAnswering is not null) {
-                // TODO: Trocar isto por exceção personalizada
-                throw new Exception("Player ainda respondendo");
-            }
-
-            _playerAnswering = value;
-        }
+        get => !IsMatchActive ? null : _questionOrder [_currentQuestionIndex];
     }
 
     public QuestionPack ActiveQuestionPack {
@@ -63,6 +46,10 @@ public class QuizManager : MonoBehaviour {
             _activeQuestionPack = value;
         }
     }
+
+    public byte NumberOfPlayers {
+        get => (byte)_allPlayers.Length;
+    }
     
     /// <summary>
     /// Função Awake da unity para inicializar a instância singleton
@@ -76,6 +63,13 @@ public class QuizManager : MonoBehaviour {
             Destroy(this);
         }
     }
+    
+    [Header("Events")]
+    // Eventos
+    public UnityEvent OnMatchStart;
+    public UnityEvent OnMatchEnd;
+    public UnityEvent OnQuestionSkip;
+    public UnityEvent OnPlayerGuess;
 
     /// <summary>
     /// Comando para começar uma partida do quiz
@@ -84,8 +78,9 @@ public class QuizManager : MonoBehaviour {
     /// <exception cref="Exception">Quando uma partida já está em andamento</exception>
     /// <exception cref="NullReferenceException">Se nenhum pacote de pergunta foi disponibilizado</exception>
     /// <exception cref="ArgumentException">Se a quantidade de jogadores não pertence a [2,4] ∩ ℕ </exception>
+    /// <returns>A pergunta do primeiro turno</returns>
     /// <author>Davi Araújo</author>
-    public void StartMatch(params Player[] players) {
+    public Question StartMatch(params Player[] players) {
         if(IsMatchActive) {
             // TODO: Trocar isto por exceção personalizada
             throw new Exception("Partida já começou");
@@ -114,6 +109,8 @@ public class QuizManager : MonoBehaviour {
         }
         
         OnMatchStart.Invoke();
+
+        return _questionOrder[0];
     }
 
     /// <summary>
@@ -164,7 +161,7 @@ public class QuizManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     /// <author>Davi Araújo</author>
-    // FIXME: Levar em conta caso de empate
+    // TODO: Levar em conta caso de empate
     public Player EndMatch() {
         // Procurar pelo jogador com mais pontos
         Player winner = _allPlayers[0];
@@ -186,14 +183,73 @@ public class QuizManager : MonoBehaviour {
     /// </summary>
     /// <param name="index">Index do jogador no array</param>
     /// <returns>Objeto do jogador escolhido</returns>
-    /// <exception cref="ArgumentOutOfRangeException">Para quando é passado um index fora do array</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Para quando é passado um index fora do array
+    /// </exception>
     /// <author>Davi Araújo</author>
     public Player GetPlayerByIndex(byte index) {
         if(index > 4) {
-            throw new ArgumentOutOfRangeException();
+            throw new IndexOutOfRangeException();
         }
 
         return _allPlayers[index];
+    }
+
+    /// <summary>
+    /// Assimila um dos jogadores da partida o papel de responder a pergunta.
+    /// Esta função acessa-o via index
+    /// </summary>
+    /// <param name="playerIndex">Index do jogador</param> // parece meio redundante
+    /// <returns>Jogador selecionado a responder</returns>
+    /// <exception cref="IndexOutOfRangeException">
+    /// Para quando o index não pertence ao vetor de jogadores
+    /// </exception>
+    /// <exception cref="Exception">
+    /// Para quando já tem algum jogador respondendo
+    /// </exception>
+    /// <author>Davi Araújo</author>
+    public Player ChoosePlayerToAnswer(byte playerIndex) {
+        if(playerIndex >= NumberOfPlayers) {
+            throw new IndexOutOfRangeException();
+        }
+
+        if(_playerAnswering is not null) {
+            //TODO: Trocar isso por exceção customizada
+            throw new Exception("Já tem um jogar respondendo");
+        }
+
+        _playerAnswering = _allPlayers[playerIndex];
+
+        return _playerAnswering;
+    }
+    
+    /// <summary>
+    /// Assimila um dos jogadores da partida o papel de responder a pergunta.
+    /// Esta função acessa-o via nome
+    /// </summary>
+    /// <param name="playerName">nome do jogador</param> // parece meio redundante
+    /// <returns>Jogador selecionado a responder</returns>
+    /// <exception cref="Exception">
+    /// Para quando já tem algum jogador respondendo
+    /// </exception>
+    /// <author>Davi Araújo</author>
+    public Player ChoosePlayerToAnswer(string playerName) {
+        if(_playerAnswering is not null) {
+            //TODO: Trocar isso por exceção customizada
+            throw new Exception("Já tem um jogar respondendo");
+        }
+        
+        // Buscar linear
+        foreach(Player player in _allPlayers) {
+            if(!player.Name.Equals(playerName)) continue;
+            
+            _playerAnswering = player;
+
+            return _playerAnswering;
+        }
+        
+        //TODO: Trocar isso por exceção customizada
+        throw new Exception("Jogador não encontrado");
     }
 }
 

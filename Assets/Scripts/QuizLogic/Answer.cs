@@ -23,7 +23,10 @@ public struct Answer {
         private set => _text = value[..Math.Min(value.Length, TEXT_MAX_LENGTH)];
     }
 
-    public bool IsCorrect { get; private set; }
+    public bool IsCorrect {
+        get => _isCorrect;
+        private set => _isCorrect = value;
+    }
     
     /// <summary>
     /// Construtor da estrutura
