@@ -1,3 +1,5 @@
+using System;
+
 namespace QuizLogic {
 
 /// <summary>
@@ -8,8 +10,17 @@ namespace QuizLogic {
 // para fazer modos novos.
 [System.Serializable]
 public class Player {
+    // Isso pode ser alterado para condizer com as necessidades futuras do jogo
+    private const byte NAME_MAX_LENGTH = 20;
+
+    private string _name;
+    
     public int Score;
-    public string Name;
+
+    public string Name {
+        get => _name;
+        private set => _name = value[..Math.Min(value.Length, NAME_MAX_LENGTH)];
+    }
     
     /// <summary>
     /// Construtor básico da classe
@@ -18,7 +29,6 @@ public class Player {
     /// <param name="initialScore">Pontuação inicial (Opcional)</param>
     /// <author>Davi Araújo</author>
     public Player(string name, int initialScore = 0) {
-        // TODO: Colocar um limitador para a string igual tem nas outras classes
         Name = name;
         Score = initialScore;
     }

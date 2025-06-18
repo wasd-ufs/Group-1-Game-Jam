@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -159,23 +160,32 @@ public class QuizManager : MonoBehaviour {
     /// <summary>
     /// Processo para finalização de uma partida
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Retorna array com o(s) ganhador(es)</returns>
     /// <author>Davi Araújo</author>
-    // TODO: Levar em conta caso de empate
-    public Player EndMatch() {
-        // Procurar pelo jogador com mais pontos
-        Player winner = _allPlayers[0];
+    public Player[] EndMatch() {
+        int highestScore = 0;
         
-        foreach(Player player in _allPlayers) {
-            if(player.Score > winner.Score) {
-                winner = player;
+        // Procurando maior pontuação
+        foreach(Player p in _allPlayers) {
+            if(p.Score > highestScore) {
+                highestScore = p.Score;
             }
         }
-
-        IsMatchActive = false;
         
+        Stack<Player> winners = new(4);
+        
+        // Procurando jogadores com a maior pontuação
+        foreach(Player p in _allPlayers) {
+            if(p.Score == highestScore) {
+                winners.Push(p);
+            }
+        }
+        
+        IsMatchActive = false;
         OnMatchEnd.Invoke();
-        return winner;
+        
+        // Deve ter algum algoritmo melhor pra fazer este processo inteiro
+        return winners.ToArray();
     }
 
     /// <summary>

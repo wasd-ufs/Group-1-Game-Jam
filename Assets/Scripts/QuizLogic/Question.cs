@@ -70,7 +70,10 @@ public class Question {
     /// <returns>Valor IsCorrect da resposta</returns>
     /// <author>Davi Araújo</author>
     public bool IsAnswerCorrect(byte index) {
-        // TODO: Tratar caso o index esteja além da array
+        if(index >= NumberOfAnswers) {
+            throw new IndexOutOfRangeException();
+        }
+        
         return _allAnswers[index].IsCorrect;
     }
 }
