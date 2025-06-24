@@ -56,10 +56,12 @@ public class QuizInputHandler : MonoBehaviour
             }
             if (Input.GetKeyDown(_player1Key)) {
                 SelectPlayer(0);
+                _questionText.GetComponent<TextoAnimado>().StopAnimation();
                 _timer.SetTimeRemaining(11f);
                 _timer.StartTimer();
             } else if (Input.GetKeyDown(_player2Key)) {
                 SelectPlayer(1);
+                _questionText.GetComponent<TextoAnimado>().StopAnimation();
                 _timer.SetTimeRemaining(11f);
                 _timer.StartTimer();
             }
@@ -101,8 +103,9 @@ public class QuizInputHandler : MonoBehaviour
 
         if (_question == null) return; // Evita exceções no final do quiz
 
-        _questionText.text = _question.Text;
-        
+        //_questionText.text = _question.Text;
+        _questionText.GetComponent<TextoAnimado>().StartAnimation(_question.Text);
+
         _textButton1.text = _question.AllAnswers[0].Text;
         _textButton2.text = _question.AllAnswers[1].Text;
         _textButton3.text = _question.AllAnswers[2].Text;
@@ -111,7 +114,6 @@ public class QuizInputHandler : MonoBehaviour
         UpdateScoreUI();
     }
 
-    
     /// <summary>
     /// Metodo que atualiza o score dos players.
     /// </summary>
