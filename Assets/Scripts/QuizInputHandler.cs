@@ -20,8 +20,8 @@ public class QuizInputHandler : MonoBehaviour
 
     Player[] _players = 
     {
-        new Player("Alice"),
-        new Player("Bob")
+        new Player("PLAYER1"),
+        new Player("PLAYER2")
     };
     
     [SerializeField] private Timer _timer; 
@@ -32,7 +32,7 @@ public class QuizInputHandler : MonoBehaviour
     void Start() {
             QuizManager.Instance.StartMatch(_players); // Inicia a partida dando os player como referencia
             UpdateUI(); // Mostra a primeira pergunta
-            _timer.SetTimeRemaining(10f);
+            _timer.SetTimeRemaining(11f);
         }
     
     /// <summary>
@@ -119,8 +119,8 @@ public class QuizInputHandler : MonoBehaviour
     /// </summary>
     /// <author>João Carlos</author>
     void UpdateScoreUI() {
-        _scoretext1.text = "Score: " + _players[0].Score;
-        _scoretext2.text = "Score: " + _players[1].Score;
+        _scoretext1.text = _players[0].Score.ToString();
+        _scoretext2.text = _players[1].Score.ToString();
     }
    
     /// <summary>
@@ -133,7 +133,7 @@ public class QuizInputHandler : MonoBehaviour
         Debug.Log(result ? "Resposta correta!" : "Resposta errada!");
         UpdateScoreUI();
         QuizManager.Instance.SkipRound();
-        _timer.SetTimeRemaining(10f);
+        _timer.SetTimeRemaining(61f);
         _isPlayerSelected = false;
         UpdateUI(); // Atualiza a pergunta e os scores
         
