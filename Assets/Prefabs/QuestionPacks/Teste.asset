@@ -66,3 +66,54 @@ MonoBehaviour:
     - _text: "A RAM \xE9 vol\xE1til e mais r\xE1pida; o HD \xE9 permanente e mais
         lento  "
       _isCorrect: 1
+  - _text: "Qual a fun\xE7\xE3o mais utilizada em C para exibir um texto?"
+    _allAnswers:
+    - _text: 'printf("");  '
+      _isCorrect: 1
+    - _text: print()
+      _isCorrect: 0
+    - _text: printLn("");
+      _isCorrect: 0
+    - _text: System.out.println();
+      _isCorrect: 0
+  - _text: "Qual desses n\xE3o \xE9 um tipo em C sem bibliotecas?"
+    _allAnswers:
+    - _text: bool
+      _isCorrect: 1
+    - _text: double
+      _isCorrect: 0
+    - _text: float
+      _isCorrect: 0
+    - _text: short int
+      _isCorrect: 0
+  - _text: "O que \xE9 uma classe em POO?"
+    _allAnswers:
+    - _text: "Uma fun\xE7\xE3o matem\xE1tica"
+      _isCorrect: 0
+    - _text: Um tipo de dado primitivo
+      _isCorrect: 0
+    - _text: "Um molde para a cria\xE7\xE3o de objetos"
+      _isCorrect: 1
+    - _text: "Um operador l\xF3gico"
+      _isCorrect: 0
+  - _text: "Qual desses \xE9 um principio em POO?"
+    _allAnswers:
+    - _text: Encapsulamento
+      _isCorrect: 1
+    - _text: Ponteiros nulos
+      _isCorrect: 0
+    - _text: "Currifica\xE7\xE3o"
+      _isCorrect: 0
+    - _text: Recursividade
+      _isCorrect: 0
+  - _text: A Unity utiliza C++ em que parte da engine?
+    _allAnswers:
+    - _text: "Na cria\xE7\xE3o de scripts"
+      _isCorrect: 0
+    - _text: "Na cria\xE7\xE3o das interfaces em C# pelo usu\xE1rio"
+      _isCorrect: 0
+    - _text: "No n\xFAcleo interno da engine (engine core) para desempenho e funcionalidades
+        base"
+      _isCorrect: 1
+    - _text: Para escrever shaders
+      _isCorrect: 0
