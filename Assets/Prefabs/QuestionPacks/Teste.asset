@@ -15,33 +15,54 @@ MonoBehaviour:
   Name: Teste
   Author: Davi
   QuestionCollection:
-  - _text: Pergunta 3
+  - _text: "Qual \xE9 a principal fun\xE7\xE3o de um compilador?"
     _allAnswers:
-    - _text: Resposta 1
-      _isCorrect: 0
-    - _text: Resposta 2
-      _isCorrect: 0
-    - _text: Resposta 3
+    - _text: "Traduzir c\xF3digo-fonte para linguagem de m\xE1quina"
       _isCorrect: 1
-    - _text: Resposta 4
+    - _text: "Armazenar dados temporariamente durante a execu\xE7\xE3o"
       _isCorrect: 0
-  - _text: Pergunta 2
+    - _text: Controlar o fluxo de dados em redes de computadores
+      _isCorrect: 0
+    - _text: "Realizar opera\xE7\xF5es aritm\xE9ticas em tempo real"
+      _isCorrect: 0
+  - _text: "O que \xE9 um algoritmo?"
     _allAnswers:
-    - _text: Resposta 1
+    - _text: "Um m\xE9todo de armazenamento em banco de dados"
       _isCorrect: 0
-    - _text: Resposta 2
+    - _text: "Um programa espec\xEDfico para redes neurais"
+      _isCorrect: 0
+    - _text: "Uma sequ\xEAncia finita de passos para resolver um problema"
       _isCorrect: 1
-    - _text: Resposta 3
+    - _text: "Um tipo de linguagem de programa\xE7\xE3o"
       _isCorrect: 0
-    - _text: Resposta 4
-      _isCorrect: 0
-  - _text: Pergunta 1
+  - _text: "Qual destas estruturas n\xE3o \xE9 linear?"
     _allAnswers:
-    - _text: Resposta 1
+    - _text: Lista
       _isCorrect: 0
-    - _text: Resposta 2
+    - _text: Pilha
       _isCorrect: 0
-    - _text: Resposta 3
+    - _text: Fila
       _isCorrect: 0
-    - _text: Resposta 4
+    - _text: "\xC1rvore"
+      _isCorrect: 1
+  - _text: "O que representa o valor \"booleano\" em programa\xE7\xE3o?"
+    _allAnswers:
+    - _text: Um caractere unicode
       _isCorrect: 0
+    - _text: "Um n\xFAmero decimal"
+      _isCorrect: 0
+    - _text: Um valor verdadeiro ou falso
+      _isCorrect: 1
+    - _text: Um tipo de array multidimensional
+      _isCorrect: 0
+  - _text: "Qual a principal diferen\xE7a entre RAM e HD?"
+    _allAnswers:
+    - _text: "A RAM n\xE3o influencia no desempenho  "
+      _isCorrect: 0
+    - _text: "A RAM \xE9 usada apenas por navegadores"
+      _isCorrect: 0
+    - _text: "O HD armazena programas, a RAM n\xE3o armazena nada"
+      _isCorrect: 0
+    - _text: "A RAM \xE9 vol\xE1til e mais r\xE1pida; o HD \xE9 permanente e mais
+        lento  "
+      _isCorrect: 1
